@@ -15,7 +15,7 @@ const security = require('../lib/insecurity')
 module.exports = function retrieveBasket () {
   return (req: Request, res: Response, next: NextFunction) => {
     const id = req.params.id
-    BasketModel.findOne({ where: { id }, include: [{ model: ProductModel, paranoid: false, as: 'Products' }] })
+    BasketModel.findOne({ where: { id: String(id) }, include: [{ model: ProductModel, paranoid: false, as: 'Products' }] })
       .then((basket: BasketModel | null) => {
         /* jshint eqeqeq:false */
         challengeUtils.solveIf(challenges.basketAccessChallenge, () => {
